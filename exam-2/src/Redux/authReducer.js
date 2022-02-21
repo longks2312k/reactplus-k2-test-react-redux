@@ -10,11 +10,11 @@ export default function authReducer(state = initialState, action) {
       };
     case "REMOVE_CART":
       return {
-        token: state.token?.filter(e => e?.id !== action.data?.id)
+        token: state.token?.filter(e => e?.id === action.data?.id)
       };
-      case "EDIT_CART":
+      case "REMOVE_ALL":
         return {
-          token: state.token?.filter(e => e?.id !== action.data?.id)
+          token: []
         };
     default:
       return state;

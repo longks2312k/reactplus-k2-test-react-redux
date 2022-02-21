@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import { Button, Input, Modal } from 'antd';
 import { postProduct } from '../../Api/Api'
 import './Adduser.css'
-//import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export const AddUserForm = () => {
     const [code, setCode] = useState('')
     const [name, setName] = useState('')
-    //const token = useSelector((store) => store.authReducer.token);
+
+    const dispatch = useDispatch();
+    const token = useSelector((store) => store.authReducer.token);
+    const onRemoveAll = () => {
+        // Xóa hết sp trong store
+        dispatch({ type: 'REMOVE_ALL'})
+    }
 
     //Add
     const onAdd = () => {
@@ -34,6 +40,10 @@ export const AddUserForm = () => {
                 <button className="ant-btn ant-btn-primary" onClick={handleOpenModal}>
                     Add New User
                 </button>
+                <button onClick={() => onRemoveAll()} className="ant-btn ant-btn-primary margin-left">
+                    Remove Store
+                </button>
+                <h2 className="margin-top"> Tổng số sản phẩm trong store: {token.length}</h2>
             </div>
             <Modal title="Add New Product" visible={isModalVisible} footer={null} onCancel={handleCancel}>
                 <div className="input-text">
