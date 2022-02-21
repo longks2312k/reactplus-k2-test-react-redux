@@ -2,6 +2,9 @@ import { Modal, Input, Button } from 'antd';
 import './ListUser.css'
 import React, { useState, useEffect } from "react";
 import { getProduct, deleteProduct, putProduct } from '../../Api/Api'
+import { useSelector, useDispatch } from "react-redux";
+
+import { AddUserForm } from '../AddUserForm'
 
 export const ListProduct = () => {
 
@@ -12,13 +15,22 @@ export const ListProduct = () => {
     const [reload, setReload] = useState(1)
     const [isModalVisible, setIsModalVisible] = useState(false);
 
+    const dispatch = useDispatch();
+    const token = useSelector((store) => store.authReducer.token);
+    const onAddToStore = (item) => {
+        // Thêm sp lên store
+        dispatch({ type: 'ADD_CART', data: { item } })
+        console.log('token',token)
+    }
+
+
     // Modal
     const handleOpenModal = (item) => {
         setIsModalVisible(true)
         setId(item.id)
     }
 
-    const handleCancel = async() => {
+    const handleCancel = async () => {
         await setReload(prev => prev + 1)
         setIsModalVisible(false)
     }
@@ -33,20 +45,28 @@ export const ListProduct = () => {
     // Delete
     const onDelete = async (item) => {
         await deleteProduct(item.id)
+        // reload
         setReload(prev => prev + 1)
+        // Xóa sản phẩm => thông tin sp trên store cũng bị xóa
+        dispatch({ type: 'REMOVE_CART'})
     }
 
     // Edit
-    const onChange = async () => {
+    const onChange = async (item) => {
         await putProduct(id, { product_code: code, product_name: name })
+        // Sửa sản phẩm trên store
+        dispatch({ type: 'REMOVE_CART'})
+        dispatch({ type: 'ADD_CART', data: { item } })
         setIsModalVisible(false)
     }
 
     useEffect(() => {
         callGetProduct()
-    }, [reload,isModalVisible])
+    }, [reload, isModalVisible])
 
     return <div className="ant-list-items">
+        <h1> Product List </h1>
+        <AddUserForm />
         <div>
             <div className="item-title">
                 <div className="ids">
@@ -78,6 +98,9 @@ export const ListProduct = () => {
                             <Button onClick={() => onDelete(item)} className="ant-list-item-btn">
                                 Remove
                             </Button>
+                            <Button onClick={() => onAddToStore(item)} className="ant-list-item-btn">
+                                Add to Store
+                            </Button>
                         </ul>
                     </div>
                 )
@@ -101,6 +124,9 @@ export const ListProduct = () => {
                                 </Button>
                                 <Button onClick={() => onDelete(item)} className="ant-list-item-btn">
                                     Remove
+                                </Button>
+                                <Button onClick={() => onAddToStore(item)} className="ant-list-item-btn">
+                                    Add to Store
                                 </Button>
                             </ul>
                         </div>
