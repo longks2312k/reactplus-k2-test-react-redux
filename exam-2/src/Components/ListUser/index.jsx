@@ -32,13 +32,13 @@ export const ListProduct = () => {
 
     // Delete
     const onDelete = async (item) => {
-        const response = await deleteProduct(item.id)
+        await deleteProduct(item.id)
         setReload(prev => prev + 1)
     }
 
     // Edit
     const onChange = async () => {
-        const response = await putProduct(id, { product_code: code, product_name: name })
+        await putProduct(id, { product_code: code, product_name: name })
         setIsModalVisible(false)
     }
 

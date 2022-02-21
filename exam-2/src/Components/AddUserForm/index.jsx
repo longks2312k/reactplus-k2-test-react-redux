@@ -9,7 +9,7 @@ export const AddUserForm = () => {
     
     //Add
     const onAdd =  () => {
-        const response = postProduct({product_code: code, product_name:name})
+        postProduct({product_code: code, product_name:name})
     }
 
     
