@@ -5,7 +5,7 @@ import './Adduser.css'
 import { useDispatch, useSelector } from "react-redux";
 
 
-export const AddUserForm = () => {
+export const AddUserForm = (props) => {
     const [code, setCode] = useState('')
     const [name, setName] = useState('')
 
@@ -43,7 +43,7 @@ export const AddUserForm = () => {
                 <button onClick={() => onRemoveAll()} className="ant-btn ant-btn-primary margin-left">
                     Remove Store
                 </button>
-                <h2 className="margin-top"> Tổng số sản phẩm trong store: {token.length}</h2>
+                {/* <h2 className="margin-top"> Tổng số sản phẩm trong store: {token}</h2> */}
             </div>
             <Modal title="Add New Product" visible={isModalVisible} footer={null} onCancel={handleCancel}>
                 <div className="input-text">

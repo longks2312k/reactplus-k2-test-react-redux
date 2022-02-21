@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { AddUserForm } from '../AddUserForm'
 
-export const ListProduct = () => {
+export const ListProduct = (props) => {
 
     const [product, setProduct] = useState([])
     const [code, setCode] = useState('')
@@ -55,8 +55,8 @@ export const ListProduct = () => {
     const onChange = async (item) => {
         await putProduct(id, { product_code: code, product_name: name })
         // Sửa sản phẩm trên store
-        dispatch({ type: 'REMOVE_CART'})
-        dispatch({ type: 'ADD_CART', data: { item } })
+        // dispatch({ type: 'REMOVE_CART'})
+        // dispatch({ type: 'ADD_CART', data: { item } })
         setIsModalVisible(false)
     }
 
