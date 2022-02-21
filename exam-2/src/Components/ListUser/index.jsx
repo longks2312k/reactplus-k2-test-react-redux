@@ -67,6 +67,7 @@ export const ListProduct = (props) => {
     return <div className="ant-list-items">
         <h1> Product List </h1>
         <AddUserForm />
+        <h2 className="margin-top"> Tổng số sản phẩm trong store: {token.length}</h2>
         <div>
             <div className="item-title">
                 <div className="ids">

@@ -43,7 +43,7 @@ export const AddUserForm = (props) => {
                 <button onClick={() => onRemoveAll()} className="ant-btn ant-btn-primary margin-left">
                     Remove Store
                 </button>
-                {/* <h2 className="margin-top"> Tổng số sản phẩm trong store: {token}</h2> */}
+                
             </div>
             <Modal title="Add New Product" visible={isModalVisible} footer={null} onCancel={handleCancel}>
                 <div className="input-text">
